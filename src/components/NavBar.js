@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import CartWidget from './CartWidget.js';
+
 
 export default function ButtonAppBar() {
   return (
@@ -34,18 +36,16 @@ export default function ButtonAppBar() {
           <IconButton color="inherit" sx={{ fontSize: 14 }}>
             Metodos de Pago
           </IconButton>
-          <IconButton color="inherit" sx={{ fontSize: 14 }}>
+          <IconButton color="inherit" sx={{ fontSize: 14 }} style={{marginRight:'20px'}}>
             Ubicacion
           </IconButton>
+
+          <CartWidget/>
 
           <Button color="inherit">Ingresar</Button>
         </Toolbar>
       </AppBar>
     </Box>
-
-    <br></br>
-
-    <h3>Ofertas Especiales por el Dia de la Madre</h3>
 
     </>
   );

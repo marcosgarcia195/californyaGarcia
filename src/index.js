@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import NavBar from './components/NavBar.js';
+import App from './App';
 
 
-ReactDOM.render(<NavBar/>,
-  document.getElementById('index')
+ReactDOM.render(<App/>,
+  document.getElementById('root')
 );
+
 
 
 
