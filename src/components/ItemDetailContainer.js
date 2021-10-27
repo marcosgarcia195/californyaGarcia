@@ -9,9 +9,9 @@ import ItemDetail from './ItemDetail.js'
 
 
 
-export default function ItemDetailContainer({}) {
+export default function ItemDetailContainer() {
   
-    const [currentBebida, setCurrentBebida] = useState()
+    const [currentBebida, setCurrentBebida] = useState([])
 
      /*
 
@@ -46,9 +46,15 @@ export default function ItemDetailContainer({}) {
     getItem.then((result) => {
 
         setCurrentBebida(result);
+        console.log(currentBebida);
 
     })
+
     
+    
+
+    
+
 
   return (
         
