@@ -6,63 +6,46 @@ import ItemCount from './ItemCount.js';
 import ItemList from './ItemList.js';
 import {bebidas} from '../data/bebidas.js';
 import ItemDetail from './ItemDetail.js'
+import { useParams } from 'react-router';
 
 
 
 export default function ItemDetailContainer() {
   
-    const [currentBebida, setCurrentBebida] = useState([])
+    const { id } = useParams();
+    const [currentBebida, setCurrentBebida] = useState({})
 
-     /*
+    
 
-    const getItem = new Promise((resolve,reject) => {
+    React.useEffect(() => {
+
+      const getItem = new Promise((resolve,reject) => {
     
         setTimeout(() => {
             resolve(bebidas);
         },2000);
-    });
+      });
 
-    React.useEffect(() => {
+      getItem.then((result) => {
 
-         getItem()
+        if (result[id]){
+          setCurrentBebida(result[id]);
+        }
+      
+      });
 
-    }, []);
+    }, [id]);
 
-    getItem.then((result) => {
-
-        setCurrentBebida(result[0]);
-
-    })
-
-    */
-
-    const getItem = new Promise((resolve,reject) => {
-    
-        setTimeout(() => {
-            resolve(bebidas[0]);
-        },2000);
-    });
-
-    getItem.then((result) => {
-
-        setCurrentBebida(result);
-        console.log(currentBebida);
-
-    })
-
-    
-    
-
-    
 
 
   return (
-        
+
     <Container maxWidth="m">
+      <br/>
       <Grid container alignItems="center">      
-        <Grid item xs={4}>              
+        <Grid item xs={2}>              
         </Grid>
-        <Grid item xs={4}>     
+        <Grid item xs={8} style={{display: "flex",alignItem: "center", justifyContent: "center"}}>     
             <ItemDetail item={currentBebida}/>
         </Grid>
       </Grid>

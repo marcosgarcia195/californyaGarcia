@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Item from './Item.js'
@@ -6,23 +6,16 @@ import Item from './Item.js'
 
 export default function ItemList({items}) {
 
-    const [currenItems, setCurrentItems] = useState([])
+    const [currentItems, setCurrentItems] = useState([]);
     
-    const itemsResponse = new Promise((resolve,reject) => {
-    
-        setTimeout(() => {
-            resolve(items);
-        },2000);
-    });
+    React.useEffect(() => {
 
-    itemsResponse.then((result) => {
+        setCurrentItems(items);
 
-        setCurrentItems(result);
-
-    })
-
+    },[items]);
+  
     return (          
-      currenItems.map((item) =>          
+      currentItems.map((item) =>          
                 <Item item={item} />
       )
     );

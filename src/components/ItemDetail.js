@@ -12,7 +12,7 @@ export default function ItemDetail({item}) {
     return (
         
        
-        <Card sx={{ maxWidth: 200,minWidth: 200 }} style={{margin:'10px'}}>
+        <Card sx={{ maxWidth: 400,minWidth: 400 }} style={{margin:'10px'}}>
         <CardHeader
           title={item.title}
           subheader={'$ ' + item.price}
@@ -20,11 +20,9 @@ export default function ItemDetail({item}) {
         <CardHeader
           title={item.description}
         />
-        <CardMedia style={{ width: "auto",display: "flex",
-                  alignItem: "center",
-                  justifyContent: "center"}}
+        <CardMedia style={{ width: "auto",margin: "auto"}}
           component="img"
-          height="194"
+          height="230"
           image={item.pictureUrl}
           alt={item.title}
         />

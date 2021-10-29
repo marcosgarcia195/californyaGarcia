@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import {bebidas} from '../data/bebidas.js';
 import ItemCount from './ItemCount.js';
 import ItemList from './ItemList.js';
+import { useParams } from 'react-router';
 
 const greetingStyle = {
   color: 'darkblue',
@@ -12,19 +14,57 @@ const greetingStyle = {
 
 export default function ItemListContainer({greeting}) {
 
-  const [items, setItems] = useState([
-    {id:0,title:'Fernet Branca 750 ml',price:'650',pictureUrl:'https://http2.mlstatic.com/D_NQ_NP_889474-MLA47952840958_102021-O.webp'},
-    {id:1,title:'Gancia 1 l',price:'550',pictureUrl:'https://http2.mlstatic.com/D_NQ_NP_623259-MLA46081303995_052021-O.webp'},
-    {id:2,title:'Jagermeister 700 ml',price:'2500',pictureUrl:'none'}
-  ]);
+  const { category } = useParams();
+  const [currentBebidas, setCurrentBebidas] = useState([]);
 
+
+  React.useEffect(() => {
+
+    const getItem = new Promise((resolve,reject) => {
+  
+      setTimeout(() => {
+          resolve(bebidas);
+      },2000);
+    });
+
+    getItem.then((result) => {
+
+      if (!category){
+        setCurrentBebidas(result);
+      }
+      else{
+
+        switch (category) {
+
+          case "conalcohol":
+            
+            setCurrentBebidas([bebidas[0],bebidas[1],bebidas[2]]);
+
+            break;
+          
+          case "sinalcohol":
+            
+            setCurrentBebidas([bebidas[3]]);
+
+            break;
+
+          default:
+            
+            break;
+        }
+
+      }
+    
+    });
+
+  }, [category]);
 
   return (
         
     <Container maxWidth="m">
-      <p style={greetingStyle}>{greeting}</p>
+      <br/>
       <Grid container>          
-            <ItemList items={items}/>
+            <ItemList items={currentBebidas}/>
       </Grid>
       
     </Container>
