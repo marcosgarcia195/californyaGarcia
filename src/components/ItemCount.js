@@ -10,73 +10,27 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
 
-export default function ItemCount({name,stock, initial}) {
+export default function ItemCount({aumentar, disminuir, cantidad}) {
 
-    const [currentStock, setCurrentStock] = useState(stock);
-    const [added, setAdded] = useState(initial);
-
-    function onDecrease(){
-
-        if (added != 0){
-            setAdded(added - 1);
-        }
-        
-    }
-
-    function onAdd(){
-
-        if (added < currentStock){
-            setAdded(added + 1);
-        }
-
-    }
 
   return (
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <Box sx={{ my: 3, mx: 2 }}>
-        <Grid container alignItems="center">
-          <Grid item xs>
-            <Typography gutterBottom variant="h5" component="div">
-              {name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography gutterBottom variant="h6" component="div">
-              $4.50
-            </Typography>
-          </Grid>
-        </Grid>
-
-        <Divider variant="middle" style={{paddingTop:1}}/>
-        <Typography gutterBottom variant="h7" component="div">
-              stock: {currentStock}
-            </Typography>
-        <br></br>
-              
-        <Divider variant="middle"/>
-        <Grid container spacing={0} style={{paddingTop:8}}>
-            <Grid item xs={2}>              
-            </Grid>
-            <Grid item xs={8} item textAlign='center'>
+        <Grid container>
+        <Grid container style={{paddingTop:6}}>
+            <Grid container alignItems="center">
                 <ButtonGroup variant='outlined' style={{padding: '0px'}} fullWidth>
-                    <Button onClick={ () => {onDecrease()}}>-</Button>
-                    <Button>{added}</Button>
-                    <Button onClick={ () => {onAdd()}}>+</Button>
+                    <Button onClick={ () => {disminuir()}}>-</Button>
+                    <Button>{cantidad}</Button>
+                    <Button onClick={ () => {aumentar()}}>+</Button>
                 </ButtonGroup>
             </Grid>
             <Grid item xs={2}>                
             </Grid>
         </Grid>
-        <Grid container spacing={0} style={{paddingTop:4}}>
-            <Grid item xs={2}>              
-            </Grid>
-            <Grid item xs={8} item textAlign='center'>
-                <Button variant='contained' fullWidth onClick={() => {alert('Agregado al carro ' + added + ' unidades')}}>Agregar</Button>
-            </Grid>
-            <Grid item xs={2}>                
+        <Grid container style={{paddingTop:6}}>
+            <Grid container alignItems='center'>
+                <Button variant='contained' fullWidth onClick={() => {alert('Agregado al carro ' + cantidad + ' unidades')}}>Agregar</Button>
             </Grid>
         </Grid> 
-      </Box>
-    </Box>
+        </Grid>
   );
 }

@@ -13,8 +13,8 @@ import { useParams } from 'react-router';
 export default function ItemDetailContainer() {
   
     const { id } = useParams();
-    const [currentBebida, setCurrentBebida] = useState({})
-
+    const [currentBebida, setCurrentBebida] = useState({});
+    const [currentCantidad, setCurrentCantidad] = useState(0);
     
 
     React.useEffect(() => {
@@ -46,7 +46,7 @@ export default function ItemDetailContainer() {
         <Grid item xs={2}>              
         </Grid>
         <Grid item xs={8} style={{display: "flex",alignItem: "center", justifyContent: "center"}}>     
-            <ItemDetail item={currentBebida}/>
+            <ItemDetail item={currentBebida} cantidad={currentCantidad} setCantidad={setCurrentCantidad}/>
         </Grid>
       </Grid>
       
