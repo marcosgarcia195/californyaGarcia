@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
 
-export default function ItemCount({aumentar, disminuir, cantidad}) {
+export default function ItemCount({aumentar, disminuir, cantidad, agregar}) {
 
 
   return (
@@ -28,7 +28,7 @@ export default function ItemCount({aumentar, disminuir, cantidad}) {
         </Grid>
         <Grid container style={{paddingTop:6}}>
             <Grid container alignItems='center'>
-                <Button variant='contained' fullWidth onClick={() => {alert('Agregado al carro ' + cantidad + ' unidades')}}>Agregar</Button>
+                <Button variant='contained' fullWidth onClick={agregar}>Agregar</Button>
             </Grid>
         </Grid> 
         </Grid>

@@ -11,20 +11,9 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
-export default function ItemDetail({item, cantidad, setCantidad}) {
+export default function ItemDetail({item, cantidad, aumentar, disminuir, agregar}) {
 
-  function onDecrease(){
-
-    if (cantidad != 0){
-        setCantidad(cantidad - 1);
-    }
-    
-  }
-
-  function onAdd(){
-
-        setCantidad(cantidad + 1);
-  }
+  
 
     return (
         
@@ -44,7 +33,7 @@ export default function ItemDetail({item, cantidad, setCantidad}) {
           alt={item.title}
         />
         <CardActions disableSpacing>
-          <ItemCount aumentar={onAdd} disminuir={onDecrease} cantidad={cantidad}/> 
+          <ItemCount aumentar={aumentar} disminuir={disminuir} cantidad={cantidad} agregar={agregar}/> 
         </CardActions>    
         
         <Grid container style={{paddingBottom:6}} >

@@ -16,7 +16,7 @@ export default function ItemList({items}) {
   
     return (          
       currentItems.map((item) =>          
-                <Item item={item} />
+                <Item key={item.id} item={item} />
       )
     );
     

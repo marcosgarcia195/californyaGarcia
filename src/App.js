@@ -1,15 +1,15 @@
 import './App.css';
 
-import NavBar from './components/NavBar.js';
-import ItemListContainer from './components/ItemListContainer';
-import ItemDetailContainer from './components/ItemDetailContainer';
 import Routes from './router/router.js'
+import { CartProvider } from './context/CartContext';
 
 
 function App() {
   return (
     <div className="App">
-     <Routes />
+      <CartProvider>
+        <Routes/>
+      </CartProvider>
     </div>
   );
 }
