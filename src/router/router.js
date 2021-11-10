@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter,Switch,Route} from "react-router-dom";
 import NavBar from "../components/NavBar.js";
-import CartContainer from "../components/CartContainer";
+import CartItemContainer from "../components/CartItemContainer";
 import ItemDetailContainer from "../components/ItemDetailContainer.js";
 import ItemListContainer from "../components/ItemListContainer.js";
 import NotFound from "../components/NotFound.js";
@@ -24,7 +24,7 @@ return (
             <ItemDetailContainer />
         </Route>
         <Route exact path="/cart">
-            <CartContainer />
+            <CartItemContainer />
         </Route>
         <Route path="*">
             <NotFound/>

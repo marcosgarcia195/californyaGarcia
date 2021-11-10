@@ -25,13 +25,12 @@ export const CartProvider = ({ defaultValue = [], children}) => {
 
     const removeItem = (currentItem) => {
 
-        const newItems = items.filter(({item}) => item.id !== currentItem.item.id);
-        setItems([...newItems]);
+        if (items.some(({item}) => item.id === currentItem.item.id)){
 
-        const Item = items.find(({item}) => item.id === currentItem.item.id)
+            const newItems = items.filter(({item}) => item.id !== currentItem.item.id);
+            setItems([...newItems]);
 
-        if (Item){
-            setQuantity(quantity - Item.quantity);
+            setQuantity(quantity - currentItem.quantity);
         }
         
     };
@@ -54,6 +53,6 @@ export const CartProvider = ({ defaultValue = [], children}) => {
     }
 
 
-    return <CartContext.Provider value={{addItem,quantity}}>{children}</CartContext.Provider>
+    return <CartContext.Provider value={{items,quantity,addItem,removeItem}}>{children}</CartContext.Provider>
 
 };

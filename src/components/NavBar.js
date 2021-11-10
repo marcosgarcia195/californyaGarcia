@@ -1,6 +1,6 @@
-
-import * as React from 'react';
 import './NavBar.css';
+import React, {useState, useEffect, useContext} from 'react';
+import { CartContext } from '../context/CartContext.js';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,8 +16,11 @@ import { Link, NavLink } from 'react-router-dom';
 
 export default function ButtonAppBar() {
 
+  const { quantity } = useContext(CartContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,6 +29,7 @@ export default function ButtonAppBar() {
   };
 
   return (
+
     <div className="NavBar">
 
     <Box sx={{ flexGrow: 1 }}>
@@ -72,11 +76,7 @@ export default function ButtonAppBar() {
             Ubicacion
             </Typography>
           </IconButton>
-
-          <Link to="/cart">
-          <CartWidget/>
-          </Link>
-
+          { quantity ? <Link to="/cart"><CartWidget/></Link> : null}
           <Button color="inherit">Ingresar</Button>
         </Toolbar>
       </AppBar>

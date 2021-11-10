@@ -50,7 +50,10 @@ export default function ItemDetailContainer() {
 
       const item = {
         item: {
-          id: currentBebida['id']
+          id: currentBebida['id'],
+          title: currentBebida['title'],
+          price: currentBebida['price'],
+          pictureUrl: currentBebida['pictureUrl']
         },
         quantity: currentCantidad
       }
