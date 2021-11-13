@@ -12,7 +12,7 @@ export default function Item({item}) {
 
         <Card sx={{ maxWidth: 200,minWidth: 200 }} style={{margin:'10px'}}>
         <CardHeader sx={{ maxHeight: 40,minHeight: 40 }}
-          title={item.title}
+          title={item.name}
         />
         <CardHeader sx={{ maxHeight: 2,minHeight: 2 }}
           subheader={'$ ' + item.price}

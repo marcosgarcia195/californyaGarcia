@@ -8,31 +8,28 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, Chip } from '@mui/material';
+import {Button, Chip } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 
 export default function ItemDetail({item, deleteItem}) {
 
-  
-
     return (
-        
-       
+               
         <Card sx={{ display: 'flex' }} fullWidth>
             <Box sx={{ width: { xs: '50%', md: '40%', lg: '20%' } , borderRight: 1, borderColor: 'grey.200' }}  >
                 <CardMedia style={{ width: "auto",margin: "auto"}}
                 component="img"
                 height="130"
                 image={item.item.pictureUrl}
-                alt={item.title}
+                alt={item.item.name}
                 />
             </Box>
             <Grid container>
             <Grid item xs={12}>
             <Box sx={{ width: '100%'}}> 
                 <CardHeader sx={{ width: '80%', borderBottom: 1, borderColor: 'grey.200', margin:'auto' }}
-                title={item.item.title}
+                title={item.item.name}
                 />
             </Box>
             </Grid>
@@ -49,7 +46,7 @@ export default function ItemDetail({item, deleteItem}) {
                 </Grid>
                 <Grid item xs={2}>
                 <Typography variant="subtitle1" gutterBottom component="div" sx={{ borderBottom: 1, borderRadius: 1, borderColor: 'grey.200', fontSize:15,fontWeight: "bold"}}>
-                {"  Subtotal: $" + (item.quantity*item.item.price) + "  "}
+                {"Subtotal: $" + (item.quantity*item.item.price)}
                 </Typography>
                 </Grid>
                 </Grid>

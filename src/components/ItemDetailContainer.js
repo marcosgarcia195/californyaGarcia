@@ -1,57 +1,47 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useParams } from 'react-router';
-import { CartContext } from '../context/CartContext.js';
-import {bebidas} from '../data/bebidas.js';
-import ItemDetail from './ItemDetail.js'
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
+import {useParams} from 'react-router';
+import {getFirestore} from '../firebase/index';
+import {CartContext} from '../context/CartContext';
+import {Container,Grid,Typography,CircularProgress} from '@mui/material';
+import ItemDetail from './ItemDetail'
 
 
 export default function ItemDetailContainer() {
   
-    const { id } = useParams();
-    const { addItem,removeItem } = useContext(CartContext);
-    const [currentBebida, setCurrentBebida] = useState({});
+    const {id} = useParams();
+    const {addItem,removeItem} = useContext(CartContext);
+    const [currentBebida, setCurrentBebida] = useState(null);
     const [currentCantidad, setCurrentCantidad] = useState(0);
 
     useEffect(() => {
 
-      const getItem = new Promise((resolve,reject) => {
-    
-        setTimeout(() => {
-            resolve(bebidas);
-        },2000);
-      });
+      const dbase = getFirestore();
+      let bebida;
 
-      getItem.then((result) => {
-
-        if (result[id]){
-          setCurrentBebida(result[id]);
-        }
+      if (id){
+        bebida = dbase.collection('Bebidas').doc(id);
+      }
+            
+      bebida.get().then(bebida => {
+  
+        if (bebida){
       
+          setCurrentBebida({
+  
+              id : bebida.id,
+              ...bebida.data()
+          });
+        }
       });
 
     }, [id]);
-
-    const handleDecItem = () => {
-
-      const item = {
-        item: {
-          id: 1
-        },
-        quantity: 0
-      }
-
-      removeItem(item);
-
-    }
-
+     
     const handleAddItem = () => {
 
       const item = {
         item: {
           id: currentBebida['id'],
-          title: currentBebida['title'],
+          name: currentBebida['name'],
           price: currentBebida['price'],
           pictureUrl: currentBebida['pictureUrl']
         },
@@ -59,8 +49,7 @@ export default function ItemDetailContainer() {
       }
 
       addItem(item);
-
-    }
+    };
 
     function onDecrease(){
 
@@ -68,23 +57,36 @@ export default function ItemDetailContainer() {
           setCurrentCantidad(currentCantidad - 1);
       }
       
-    }
+    };
   
     function onAdd(){
   
           setCurrentCantidad(currentCantidad + 1);
-    }
+    };
 
 
   return (
 
     <Container maxWidth="m">
       <br/>
-      <Grid container alignItems="center">      
+      <Grid container alignItems="center" direction="column">      
         <Grid item xs={2}>              
         </Grid>
-        <Grid item xs={8} style={{display: "flex",alignItem: "center", justifyContent: "center"}}>     
+        <Grid item xs={8}>     
+           { currentBebida ?
             <ItemDetail item={currentBebida} cantidad={currentCantidad} disminuir={onDecrease} aumentar={onAdd} agregar={handleAddItem}/>
+           :
+           <Grid container>
+           <Grid item xs={12}>
+           <Typography variant="h6" gutterBottom component="div" sx={{fontWeight: "bold", textAlign:"center"}} fullWidth>
+            Cargando
+           </Typography>
+           </Grid>
+           <Grid item xs={12}>
+           <CircularProgress />
+           </Grid>
+           </Grid>
+          }
         </Grid>
       </Grid>
     </Container>

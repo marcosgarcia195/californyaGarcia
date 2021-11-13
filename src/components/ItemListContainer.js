@@ -1,72 +1,61 @@
 import React, {useState, useEffect} from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import {bebidas} from '../data/bebidas.js';
-import ItemCount from './ItemCount.js';
+import {useParams} from 'react-router';
+import {getFirestore} from '../firebase/index';
+import {Container, Grid, Box, Typography, CircularProgress} from '@mui/material';
 import ItemList from './ItemList.js';
-import { useParams } from 'react-router';
 
-const greetingStyle = {
-  color: 'darkblue',
-  fontSize: 22 ,
-};
 
 export default function ItemListContainer({greeting}) {
 
   const { category } = useParams();
   const [currentBebidas, setCurrentBebidas] = useState([]);
-
-
-  React.useEffect(() => {
-
-    const getItem = new Promise((resolve,reject) => {
   
-      setTimeout(() => {
-          resolve(bebidas);
-      },2000);
-    });
-
-    getItem.then((result) => {
-
-      if (!category){
-        setCurrentBebidas(result);
-      }
-      else{
-
-        switch (category) {
-
-          case "conalcohol":
-            
-            setCurrentBebidas([bebidas[0],bebidas[1],bebidas[2]]);
-
-            break;
-          
-          case "sinalcohol":
-            
-            setCurrentBebidas([bebidas[3]]);
-
-            break;
-
-          default:
-            
-            break;
-        }
-
-      }
+  useEffect(() => {
     
-    });
+    const dbase = getFirestore();
+    let bebidas = [];
+    
+    if (category){
+      bebidas = dbase.collection('Bebidas').where('categoryId','==',category);
+    }
+    else{
+      bebidas = dbase.collection('Bebidas');
+    }
+    
 
-  }, [category]);
+    bebidas.get().then(resultado => {
+
+      if (resultado){
+    
+        setCurrentBebidas(resultado.docs.map(bebida => ({
+
+            id : bebida.id,
+            ...bebida.data()
+        })));
+      }
+    });
+  
+  }, [category])
 
   return (
         
     <Container maxWidth="m">
       <br/>
-      <Grid container>          
-            <ItemList items={currentBebidas}/>
+      <Grid container>
+          { currentBebidas.length > 0 ?          
+          <ItemList items={currentBebidas}/>
+          :
+          <Grid container>
+           <Grid item xs={12}>
+           <Typography variant="h6" gutterBottom component="div" sx={{fontWeight: "bold", textAlign:"center"}} fullWidth>
+            Cargando
+           </Typography>
+           </Grid>
+           <Grid item xs={12}>
+           <CircularProgress />
+           </Grid>
+           </Grid>}
       </Grid>
-      
     </Container>
   );
 }

@@ -20,7 +20,7 @@ export default function ItemDetail({item, cantidad, aumentar, disminuir, agregar
        
         <Card sx={{ maxWidth: 400,minWidth: 400 }} style={{margin:'10px'}}>
         <CardHeader
-          title={item.title}
+          title={item.name}
           subheader={'$ ' + item.price}
         />
         <CardHeader
