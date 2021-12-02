@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
+import {Typography} from '@mui/material';
 
 export default function NotFound() {
 

@@ -1,36 +1,21 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import React from 'react';
+import {Grid, Button, ButtonGroup} from '@mui/material';
 
-
-export default function ItemCount({aumentar, disminuir, cantidad, agregar}) {
-
+export default function ItemCount({increase, decrease, quantity, addItem}) {
 
   return (
+
         <Grid container>
-        <Grid container style={{paddingTop:6}}>
-            <Grid container alignItems="center">
+            <Grid item xs={12} style={{paddingTop:6}}>
                 <ButtonGroup variant='outlined' style={{padding: '0px'}} fullWidth>
-                    <Button onClick={ () => {disminuir()}}>-</Button>
-                    <Button>{cantidad}</Button>
-                    <Button onClick={ () => {aumentar()}}>+</Button>
-                </ButtonGroup>
+                    <Button onClick={ () => {decrease()}}>-</Button>
+                    <Button>{quantity}</Button>
+                    <Button onClick={ () => {increase()}}>+</Button>
+                </ButtonGroup>                
             </Grid>
-            <Grid item xs={2}>                
+            <Grid item xs={12} style={{paddingTop:6}}>
+                <Button variant='contained' fullWidth onClick={addItem}>Agregar</Button>
             </Grid>
-        </Grid>
-        <Grid container style={{paddingTop:6}}>
-            <Grid container alignItems='center'>
-                <Button variant='contained' fullWidth onClick={agregar}>Agregar</Button>
-            </Grid>
-        </Grid> 
         </Grid>
   );
 }

@@ -9,7 +9,6 @@ export default function CartWidget() {
 
   const { quantity } = useContext(CartContext);
 
-
     return (
           
       <IconButton> 

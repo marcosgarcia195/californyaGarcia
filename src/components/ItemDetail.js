@@ -1,23 +1,19 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
+import React from 'react';
+import {Link, useHistory} from 'react-router-dom';
+import {Grid, Card, CardHeader, CardMedia, CardActions, Button} from '@mui/material';
 import ItemCount from './ItemCount';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import Alert from './FeedBack/Alert';
 
-
-export default function ItemDetail({item, cantidad, aumentar, disminuir, agregar}) {
-
-  
+export default function ItemDetail({item, quantity, decrease, increase, addItem, drinkAdded}) {
+ 
+  let history = useHistory();
+  const goToPreviousPath = () => {
+      history.goBack()
+  }
 
     return (
         
-       
+        <>   
         <Card sx={{ maxWidth: 400,minWidth: 400 }} style={{margin:'10px'}}>
         <CardHeader
           title={item.name}
@@ -32,16 +28,34 @@ export default function ItemDetail({item, cantidad, aumentar, disminuir, agregar
           image={item.pictureUrl}
           alt={item.title}
         />
-        <CardActions disableSpacing>
-          <ItemCount aumentar={aumentar} disminuir={disminuir} cantidad={cantidad} agregar={agregar}/> 
-        </CardActions>    
         
-        <Grid container style={{paddingBottom:6}} >
-          <Button style={{margin: "auto",textDecoration:"none"}} variant='outlined' color='primary'><Link to="/cart" style={{textDecoration:"none",color:"darkcyan"}}>Finalizar Compra</Link></Button>
-        </Grid>
-        
-        </Card>
-  
+        { !drinkAdded ?
+          <>
+          <CardActions disableSpacing>
+          <ItemCount increase={increase} decrease={decrease} quantity={quantity} addItem={addItem}/> 
+          </CardActions>    
+          </>
+        :
 
+        <>
+
+        <CardActions disableSpacing>
+        <Grid container>
+        <Grid item xs={12}>
+        <Button variant='outlined' color='primary' fullWidth onClick={goToPreviousPath}>Volver Atras</Button>
+        </Grid>
+        <Grid item xs={12} style={{paddingTop:4}}>
+       <Button style={{textDecoration:"none"}} variant='outlined' color='primary' fullWidth><Link to="/cart" style={{textDecoration:"none",color:"darkcyan"}}>Finalizar Compra</Link></Button>
+        </Grid>
+        </Grid>
+         </CardActions>  
+
+          </>
+
+        }
+ 
+        </Card>
+        <Alert description={ drinkAdded ?  ("Se agregaron (" + quantity + ") al Carrito") : null} type={"success"}/>
+        </>
     );
   }

@@ -3,7 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 const app = firebase.initializeApp({
-apiKey: "AIzaSyD4gXIhR_-3dqh8oiJVmLCmOd5MYATcGyw",
+apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
 authDomain: "californyadrinks.firebaseapp.com",
 projectId: "californyadrinks",
 storageBucket: "californyadrinks.appspot.com",

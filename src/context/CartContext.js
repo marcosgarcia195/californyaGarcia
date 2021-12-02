@@ -1,7 +1,6 @@
-import { createContext, useState } from "react";
+import {createContext, useState} from "react";
 
 export const CartContext = createContext([]);
-
 
 export const CartProvider = ({ defaultValue = [], children}) => {
 
@@ -40,18 +39,17 @@ export const CartProvider = ({ defaultValue = [], children}) => {
         setQuantity(0);
     }
 
-    const isInCart = (id) => { 
+    /*const isInCart = (id) => { 
       
-        let existe = false;
+        let exist = false;
 
         if(items.find(({item}) => item.id === id)){
 
-            existe = true;
+            exist = true;
         }
 
-        return existe;
-    }
-
+        return exist;
+    }*/
 
     return <CartContext.Provider value={{items,quantity,addItem,removeItem,clear}}>{children}</CartContext.Provider>
 

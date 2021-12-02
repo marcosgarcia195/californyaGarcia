@@ -1,23 +1,16 @@
-import './NavBar.css';
-import React, {useState, useEffect, useContext} from 'react';
-import { CartContext } from '../context/CartContext.js';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import React, {useState, useContext} from 'react';
+import {Link} from 'react-router-dom';
+import {CartContext} from '../context/CartContext.js';
+import {AppBar, Box, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import CartWidget from './CartWidget';
-import { Link, NavLink } from 'react-router-dom';
+import './NavBar.css';
 
 
 export default function ButtonAppBar() {
 
   const { quantity } = useContext(CartContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
 

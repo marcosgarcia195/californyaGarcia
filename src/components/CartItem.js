@@ -1,22 +1,13 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
+import React from 'react';
+import {Box, Grid, Card, CardHeader, CardMedia, CardContent, Typography, Chip} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {Button, Chip } from '@mui/material';
-import { Link } from 'react-router-dom';
 
-
-export default function ItemDetail({item, deleteItem}) {
+export default function CartItem({item, deleteItem}) {
 
     return (
                
-        <Card sx={{ display: 'flex' }} fullWidth>
+        <Grid item xs={10}>
+        <Card sx={{ display: 'flex' }}>
             <Box sx={{ width: { xs: '50%', md: '40%', lg: '20%' } , borderRight: 1, borderColor: 'grey.200' }}  >
                 <CardMedia style={{ width: "auto",margin: "auto"}}
                 component="img"
@@ -55,6 +46,7 @@ export default function ItemDetail({item, deleteItem}) {
             </Grid>
             </Grid>
         </Card>
+        </Grid>
 
     );
   }

@@ -9,27 +9,28 @@ import ItemDetail from './ItemDetail'
 export default function ItemDetailContainer() {
   
     const {id} = useParams();
-    const {addItem,removeItem} = useContext(CartContext);
-    const [currentBebida, setCurrentBebida] = useState(null);
-    const [currentCantidad, setCurrentCantidad] = useState(0);
+    const {addItem} = useContext(CartContext);
+    const [currentDrink, setCurrentDrink] = useState(null);
+    const [currentQuantity, setCurrentQuantity] = useState(0);
+    const [drinkAdded, setDrinkAdded] = useState(false);
 
     useEffect(() => {
 
       const dbase = getFirestore();
-      let bebida;
+      let drink;
 
       if (id){
-        bebida = dbase.collection('Bebidas').doc(id);
+        drink = dbase.collection('Bebidas').doc(id);
       }
             
-      bebida.get().then(bebida => {
+      drink.get().then(drink => {
   
-        if (bebida){
+        if (drink){
       
-          setCurrentBebida({
+          setCurrentDrink({
   
-              id : bebida.id,
-              ...bebida.data()
+              id : drink.id,
+              ...drink.data()
           });
         }
       });
@@ -40,28 +41,29 @@ export default function ItemDetailContainer() {
 
       const item = {
         item: {
-          id: currentBebida['id'],
-          name: currentBebida['name'],
-          price: currentBebida['price'],
-          pictureUrl: currentBebida['pictureUrl']
+          id: currentDrink['id'],
+          name: currentDrink['name'],
+          price: currentDrink['price'],
+          pictureUrl: currentDrink['pictureUrl']
         },
-        quantity: currentCantidad
+        quantity: currentQuantity
       }
 
       addItem(item);
+      setDrinkAdded(true);
     };
 
     function onDecrease(){
 
-      if (currentCantidad !== 0){
-          setCurrentCantidad(currentCantidad - 1);
+      if (currentQuantity !== 0){
+          setCurrentQuantity(currentQuantity - 1);
       }
       
     };
   
-    function onAdd(){
+    function onIncrease(){
   
-          setCurrentCantidad(currentCantidad + 1);
+          setCurrentQuantity(currentQuantity + 1);
     };
 
 
@@ -73,12 +75,12 @@ export default function ItemDetailContainer() {
         <Grid item xs={2}>              
         </Grid>
         <Grid item xs={8}>     
-           { currentBebida ?
-            <ItemDetail item={currentBebida} cantidad={currentCantidad} disminuir={onDecrease} aumentar={onAdd} agregar={handleAddItem}/>
+           { currentDrink ?
+            <ItemDetail item={currentDrink} quantity={currentQuantity} decrease={onDecrease} increase={onIncrease} addItem={handleAddItem} drinkAdded={drinkAdded}/>
            :
            <Grid container>
            <Grid item xs={12}>
-           <Typography variant="h6" gutterBottom component="div" sx={{fontWeight: "bold", textAlign:"center"}} fullWidth>
+           <Typography variant="h6" gutterBottom component="div" sx={{fontWeight: "bold", textAlign:"center"}}>
             Cargando
            </Typography>
            </Grid>

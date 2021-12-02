@@ -1,24 +1,22 @@
-import React, {useState, useEffect, useContext} from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import React, {useState, useEffect} from 'react';
+import {Stack, Snackbar, Alert} from '@mui/material';
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+
+const MAlert = React.forwardRef(function MAlert(props, ref) {
+  return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function CustomizedSnackbars({descripcion,tipo}) {
+export default function CustomizedSnackbars({description,tipo}) {
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
 
-        if (descripcion){
+        if (description){
             setOpen(true);
         }
         
-        }, [descripcion]);
+        }, [description]);
 
  
 
@@ -33,9 +31,9 @@ export default function CustomizedSnackbars({descripcion,tipo}) {
   return (
     <Stack spacing={2} sx={{ width: '100%' }}>
       <Snackbar open={open} autoHideDuration={null} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={tipo} sx={{ width: '100%' }}>
-          {descripcion}
-        </Alert>
+        <MAlert onClose={handleClose} severity={tipo} sx={{ width: '100%' }}>
+          {description}
+        </MAlert>
       </Snackbar>
     </Stack>
   );
